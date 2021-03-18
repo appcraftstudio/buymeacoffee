@@ -20,7 +20,7 @@ Pod::Spec.new do |spec|
   spec.source_files          = 'Sources/**/*.swift', 'Bundle.swift'
   spec.resources             = 'Sources/**/Resources/*'
 
-  spec.ios.framework         = 'UIKit', 'WebKit'
+  spec.ios.framework         = 'UIKit', 'WebKit', 'SwiftUI'
   
   spec.test_spec 'BuyMeACoffeeTests' do |test_spec|
     test_spec.source_files   = 'Tests/BuyMeACoffeeTests/*.{swift}'

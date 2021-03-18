@@ -89,18 +89,25 @@ public final class BMCManager: NSObject, SKProductsRequestDelegate, SKPaymentTra
      Start the donation flow on presenting view controller.
      */
     @objc public func start() {
-        guard let presentingViewController = presentingViewController else {
-            fatalError("presentingViewController must be set.")
-        }
         
         guard SKPaymentQueue.canMakePayments(), let product = product else {
             return fallback()
         }
-        
-        presentingViewController.present(loadingViewController, animated: true) {
+        if #available(iOS 13.0, *) {
             let payment = SKPayment(product: product)
             SKPaymentQueue.default().add(self)
             SKPaymentQueue.default().add(payment)
+        } else {
+            guard let presentingViewController = presentingViewController else {
+                fatalError("presentingViewController must be set.")
+            }
+            
+            
+            presentingViewController.present(loadingViewController, animated: true) {
+                let payment = SKPayment(product: product)
+                SKPaymentQueue.default().add(self)
+                SKPaymentQueue.default().add(payment)
+            }
         }
     }
     
